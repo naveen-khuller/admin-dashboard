@@ -12,12 +12,20 @@ pipeline {
         git branch: 'master', url: 'https://github.com/naveen-khuller/admin-dashboard.git'
       }
     }
-    stage('Build and Test') {
-      steps {
-        // build the project and create a JAR file
-        sh 'npm run build'
+    stage('Install dependencies') {
+            steps {
+                // Install Node.js dependencies using npm or yarn
+                sh 'npm install' // or 'yarn install'
+            }
+        }
+
+    stage('Build') {
+            steps {
+                // Build the React app
+                sh 'npm run build' // or 'yarn build'
+            }
       }
-    }
+
     stage('Static Code Analysis') {
       environment {
         SONAR_URL = "http://18.204.6.121:9000/"
